@@ -1,16 +1,7 @@
 import { Invoice } from "./classes/invoice"
 import { Payments } from "./classes/payments"
 import { HasFormatter } from "./interfaces/HasFormatter"
-
-let docOne: HasFormatter
-let docTwo: HasFormatter
-
-docOne = new Invoice('mario', 'work', 250)
-docTwo = new Payments('arj', 'work', 350)
-
-let docs: HasFormatter[] = []
-docs.push(docOne)
-docs.push(docTwo)
+import { ListTemplate } from "./classes/ListTemplates" 
 
 const anchor = document.querySelector('a') as HTMLAnchorElement;
 const form = document.querySelector('.new-item-form') as HTMLFormElement;
@@ -20,6 +11,10 @@ const type = document.querySelector('#type') as HTMLSelectElement;
 const tofrom = document.querySelector('#tofrom') as HTMLInputElement;
 const details = document.querySelector('#details') as HTMLInputElement;
 const amount = document.querySelector('#amount') as HTMLInputElement;
+
+// list template instance
+const ul = document.querySelector('ul') as HTMLUListElement
+const list = new ListTemplate(ul)
 
 form.addEventListener('submit', (e: Event) => {
     
@@ -31,4 +26,6 @@ form.addEventListener('submit', (e: Event) => {
     } else {
         doc = new Payments(tofrom.value, details.value, amount.valueAsNumber)
     }
+
+    list.render(doc, type.value, 'end')
 });
