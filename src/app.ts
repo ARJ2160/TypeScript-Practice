@@ -1,26 +1,34 @@
-const anchor = document.querySelector('a')!;
-if(anchor) {
-  console.log(anchor.href);
-}
-console.log(anchor.href);
+import { Invoice } from "./classes/invoice"
+import { Payments } from "./classes/payments"
+import { HasFormatter } from "./interfaces/HasFormatter"
 
-//const form = document.querySelector('form')!;
+let docOne: HasFormatter
+let docTwo: HasFormatter
+
+docOne = new Invoice('mario', 'work', 250)
+docTwo = new Payments('arj', 'work', 350)
+
+let docs: HasFormatter[] = []
+docs.push(docOne)
+docs.push(docTwo)
+
+const anchor = document.querySelector('a') as HTMLAnchorElement;
 const form = document.querySelector('.new-item-form') as HTMLFormElement;
-console.log(form.children);
 
 // inputs
-const type = document.querySelector('#type') as HTMLInputElement;
+const type = document.querySelector('#type') as HTMLSelectElement;
 const tofrom = document.querySelector('#tofrom') as HTMLInputElement;
 const details = document.querySelector('#details') as HTMLInputElement;
 const amount = document.querySelector('#amount') as HTMLInputElement;
 
 form.addEventListener('submit', (e: Event) => {
-  e.preventDefault();
-
-  console.log(
-    type.value, 
-    tofrom.value, 
-    details.value, 
-    amount.valueAsNumber
-  );
+    
+    e.preventDefault();
+    let doc: HasFormatter
+    
+    if (type.value === 'invoice') {
+        doc = new Invoice(tofrom.value, details.value, amount.valueAsNumber)
+    } else {
+        doc = new Payments(tofrom.value, details.value, amount.valueAsNumber)
+    }
 });
