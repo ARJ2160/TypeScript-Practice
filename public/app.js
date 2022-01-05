@@ -1,7 +1,6 @@
 import { Invoice } from "./classes/invoice.js";
 import { Payments } from "./classes/payments.js";
 import { ListTemplate } from "./classes/ListTemplates.js";
-const anchor = document.querySelector('a');
 const form = document.querySelector('.new-item-form');
 // inputs
 const type = document.querySelector('#type');
